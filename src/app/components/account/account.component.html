@@ -1,0 +1,16 @@
+<main role="main" class="container">
+  <div class="jumbotron"><h1>app-accounts</h1>
+  <p class="lead">
+    app-accounts
+  </p></div>
+
+  <ul class = "list-group">
+    <p>List Accouts</p>
+    <li *ngFor = "let account of arrAccounts" class = "list-group-item">
+<a>
+  {{account.username}}
+</a>
+    </li>
+  </ul>
+</main>
+

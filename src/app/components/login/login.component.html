@@ -1,0 +1,37 @@
+<div class="login-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    </div>
+    <div class="card-body">
+      <form class="form-signin" (ngSubmit)="onSubmit(signInForm)" #signInForm = "ngForm">
+        <div class="alert alert-danger" role="alert" *ngIf="isFormInValid">
+          Please fill all fields
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="areCredentialsInvalid">
+          Invalid user or passowrd
+        </div>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+          autofocus ngModel />
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required
+          ngModel />
+        <div class="row flex-row-reverse">
+          <div class="col-xs-6 col-sm-6">
+            <p class="forgotPwd">
+              <a class="lnk-toggler" data-panel=".panel-forgot" routerLink="/#">Forgot password?</a>
+            </p>
+          </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">
+          Sign in
+        </button>
+      </form>
+      <div class="w-100 text-center mt-4 text">
+        <p class="mb-0">Don't have an account?</p>
+        <a routerLink="/resigter">Sign Up</a>
+      </div>
+    </div>
+  </div>
+</div>

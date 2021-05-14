@@ -1,0 +1,11 @@
+.login-wrapper{
+  margin: 10rem auto;
+  width: 25rem ;
+  text-align: center;
+}
+input{
+  margin-bottom: 2rem;
+}
+.card-header{
+padding-top: 1rem;
+}
