@@ -23,18 +23,16 @@ export class AuthenticationService {
   // public get currentUserValue(): User {
   //   return this.currentUserSubject.value;
   // }
-  getToken()
-  {
+  getToken() {
     console.log(localStorage.getItem('accessToken'));
     return localStorage.getItem('accessToken');
   }
   getAccount() {
     console.log(localStorage.getItem('accessToken'));
-
+    var token = localStorage.getItem('accessToken');
     let header = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
-   header= header.append('accesstoken', `${localStorage.getItem('accessToken')}`)
+    header = header.set("Authorization", 'Bearer '+token )
     console.log(header.get('Authorization'));
-    console.log(header.get('Content-Type'));
     let options = { headers: header };
     return this.http.post("http://localhost:3000/api/account", options);
 

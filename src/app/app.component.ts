@@ -10,8 +10,11 @@ import { AuthenticationService } from "./service/authentication.service";
 export class AppComponent {
   title = "angular-demo";
 
-  constructor(public authenticationService: AuthenticationService, private router: Router) {}
-  logout(){
+  constructor(
+    public authenticationService: AuthenticationService,
+    // private router: Router
+    ) { }
+  logout() {
     this.authenticationService.logout();
   }
 }
