@@ -1,5 +1,5 @@
 <nav
-  class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf ="authenticationService.isAuthenticated"
+  class="navbar navbar-expand-lg navbar-dark bg-dark"
 
 >
   <a class="navbar-brand" routerLink="home">Home</a>
@@ -18,23 +18,26 @@
   <div class="collapse navbar-collapse" id="navbarsExample05">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" routerLink="login"
+        <!-- <a class="nav-link" routerLink="login"
           >Login <span class="sr-only">(current)</span></a
-        >
-      </li> <li class="nav-item">
+        > -->
+      </li>
+      <li class="nav-item"   *ngIf="!authenticationService.isAuthenticated">
         <a class="nav-link" routerLink="resigter">Resigter</a>
-      </li> <li class="nav-item">
-        <a class="nav-link" routerLink="login">lo</a>
-      </li>     <li class="nav-item">
-        <a class="nav-link" routerLink="accounts">acc</a>
+      </li>
+      <li class="nav-item"   *ngIf="!authenticationService.isAuthenticated">
+        <a class="nav-link" routerLink="login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="authenticationService.isAuthenticated">
+        <a class="nav-link" routerLink="accounts">List Account</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" routerLink="#">Disabled</a>
       </li>
     </ul>
-    <ul class = "navbar-nav ml-auto">
-      <li class = "nav-item pointer">
-        <a (click) = "logout()" class = "nav-link"> Logout</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item pointer" *ngIf="authenticationService.isAuthenticated">
+        <a (click)="logout()" class="nav-link"> Logout</a>
       </li>
     </ul>
   </div>

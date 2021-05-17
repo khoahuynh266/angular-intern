@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { User } from "src/app/model/user";
 import { map } from 'rxjs/operators';
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { SignInData } from "../model/sigInData";
 import { SignUpData } from "../model/SignUpData";
 @Injectable({
@@ -11,13 +11,13 @@ import { SignUpData } from "../model/SignUpData";
 })
 export class AuthenticationService {
 
-  // private currentUserSubject: BehaviorSubject<User>;
-  // public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
   constructor(private http: HttpClient,
     private router: Router) {
-    // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    // this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
   isAuthenticated = false;
   // public get currentUserValue(): User {
@@ -30,13 +30,28 @@ export class AuthenticationService {
   getAccount() {
     console.log(localStorage.getItem('accessToken'));
     var token = localStorage.getItem('accessToken');
-    let header = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
-    header = header.set("Authorization", 'Bearer '+token )
-    console.log(header.get('Authorization'));
-    let options = { headers: header };
-    return this.http.post("http://localhost:3000/api/account", options);
+
+
+    const options = {
+      headers:  new HttpHeaders({
+          'Content-Type':  'application/x-www-form-urlencoded',
+        'Authorization': "Bearer "+ token })
+    };
+    return this.http.post("http://localhost:3000/api/account" ,'',options);
 
     // body ( thong so truyen vao)
+
+  //   var headers_object = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //      'Authorization': "Bearer "+ token
+  //   });
+
+  //       const httpOptions = {
+  //         headers: headers_object
+  //       };
+
+
+  //  return this.http.post('http://localhost:3000/api/account', {limit:10}, httpOptions);
   }
 
   login(signinData: SignInData): Observable<any> {
@@ -53,6 +68,8 @@ export class AuthenticationService {
       localStorage.setItem('refreshToken', res['refreshToken']);
       // this.currentUserSubject.next(res);
       this.isAuthenticated = true;
+      localStorage.setItem('currentUser', JSON.stringify(res));
+      this.currentUserSubject.next(res);
       return res;
     }));
   }
@@ -70,23 +87,23 @@ export class AuthenticationService {
 
     this.http.post("http://localhost:3000/api/resigter", body.toString(), options).subscribe(
       data => {
-        // this.isAuthenticated = true;
+        this.isAuthenticated = true;
         this.router.navigate(["home"]);
         alert("hello" + resigterData.getEmail());
         return true;
       },
       error => {
-        // this.isAuthenticated = false;
+        this.isAuthenticated = false;
         return false;
       });;
 
   }
 
   logout() {
-    // this.isAuthenticated = false;
     localStorage.removeItem('currentUser');
     // this.currentUserSubject.next(null);
-    this.router.navigate([""]);
+    this.router.navigate(["/login"]);
     this.isAuthenticated = false
+    this.currentUserSubject.next(null);
   }
 }
