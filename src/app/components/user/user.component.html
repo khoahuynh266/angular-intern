@@ -1,0 +1,37 @@
+
+<main role="main" class="container">
+  <div class="jumbotron center">
+    <h1>List Account</h1>
+    <p class="lead">This is List Account</p>
+  </div>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+    <table class="table table-bordered table-hover mt-3">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Fullname</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of arrAccounts; let indexOfelement = index">
+        <th scope="row">{{ indexOfelement + 1 }}</th>
+        <td>{{ account.username }}</td>
+        <td>{{ account.fullname }}</td>
+        <td>{{ account.phone }}</td>
+        <td>
+          <div name="btnupdate" class="btn btn-primary mr-2  "(click)="open(account.id)">update</div>
+          <div class="btn btn-danger" (click)="delete(account.id)">Delete</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="list-group"></ul>
+</main>

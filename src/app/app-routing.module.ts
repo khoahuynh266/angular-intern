@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AccountComponent } from './components/account/account.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ResigterComponent } from './components/resigter/resigter.component';
+import { UserComponent } from './components/user/user.component';
 import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
     { path: '', component: HomeComponent ,canActivate: [AuthGuard]},
-    { path: 'login', component: LoginComponent },
-    { path: 'resigter', component: ResigterComponent },
-    {path : 'accounts', component :AccountComponent},
+    { path: 'login', component: LoginComponent,canLoad: [AuthGuard] },
+    { path: 'resigter', component: ResigterComponent,canActivateChild: [AuthGuard] },
+    {path : 'user', component :UserComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

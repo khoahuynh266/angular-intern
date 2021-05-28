@@ -18,22 +18,22 @@ export class ResigterComponent implements OnInit {
       this.isFormInValid = true;
       this.isPasswordInvalid = false;
       return;
-    }else
-    if( signUpForm.value.password!== signUpForm.value.confirm_password)
-    {
-      this.isFormInValid = false;
-      this.isPasswordInvalid = true;
-      return;
-    }
+    } else
+      if (signUpForm.value.password !== signUpForm.value.confirm_password) {
+        this.isFormInValid = false;
+        this.isPasswordInvalid = true;
+        return;
+      }
     this.checkCredentials(signUpForm);
   }
   private checkCredentials(signUpForm: NgForm) {
-    const fullname =  signUpForm.value.first_name +' '+ signUpForm.value.last_name;
+    // const fullname = signUpForm.value.first_name + ' ' + signUpForm.value.last_name;
     const signUpData = new SignUpData(
       signUpForm.value.username,
       signUpForm.value.password,
-     fullname
-      );
+      signUpForm.value.fullname,
+      signUpForm.value.phone
+    );
     if (!this.authenticationService.resigter(signUpData)) {
       this.isFormInValid = false;
       this.isPasswordInvalid = false;

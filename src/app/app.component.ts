@@ -15,9 +15,12 @@ export class AppComponent {
   constructor(
     public authenticationService: AuthenticationService,
     // private router: Router
-    ) { }
+    ) {
+      const user = localStorage.getItem('user')
+     }
 
     logout() {
     this.authenticationService.logout();
+
   }
 }

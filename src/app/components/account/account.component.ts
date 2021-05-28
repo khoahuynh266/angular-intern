@@ -10,10 +10,10 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 export class AccountComponent implements OnInit {
   arrAccounts:any= []
   constructor( private accountService : AuthenticationService) {
-    accountService.getAccount().subscribe(data=> {
-      console.log(data);
-      this.arrAccounts = data;
-    })
+    // accountService.getAccount().subscribe(data=> {
+    //   console.log(data);
+    //   this.arrAccounts = data;
+    // })
    }
   ngOnInit() {
   }

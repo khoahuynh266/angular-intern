@@ -8,10 +8,14 @@ import { ResigterComponent } from './components/resigter/resigter.component';
 import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from './components/account/account.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { UserComponent } from './components/user/user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserModalComponent } from './components/user/user-modal/user-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,17 +23,22 @@ import { AuthGuard } from './guards/auth.guard';
     LoginComponent,
     ResigterComponent,
     HomeComponent,
-    AccountComponent
+    AccountComponent,
+    UserComponent,
+    ProfileComponent,
+    UserModalComponent,
   ],
   imports: [
     BrowserModule,
-    // RouterModule,s
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-     CommonModule,
-     RouterModule,
+    CommonModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
+
   providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
