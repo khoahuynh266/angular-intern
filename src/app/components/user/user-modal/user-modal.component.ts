@@ -43,6 +43,6 @@ export class UserModalComponent implements OnInit {
 
     this.userService.updateUser(data, this.user.id);
     this.activeModal.close(data);
-    this.userComponent.onClose();
+    // call refreshdata ở UserComponent
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit, Output } from "@angular/core";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { User } from "src/app/model/user";
 import { UserService } from "src/app/service/user.service";
 import { UserModalComponent } from "./user-modal/user-modal.component";
 
@@ -29,8 +28,7 @@ export class UserComponent implements OnInit {
     const deletedID = this.arrAccounts.find((x) => x.id === id);
     this.arrAccounts.splice(this.arrAccounts.indexOf(deletedID), 1);
   }
-  public onClose()
-  {
+  public onClose() {
     this.refreshData();
   }
   ngOnInit() {
@@ -45,11 +43,17 @@ export class UserComponent implements OnInit {
       this.arrAccounts = data;
     });
   }
+
   open(id) {
     const modalRef = this.modalService.open(UserModalComponent);
     modalRef.componentInstance.title = "I your title";
     modalRef.componentInstance.user = this.arrAccounts.find((x) => x.id === id);
+    modalRef.result.then( async (result) => {
+      if(result){
+     this.refreshData();
+    }});
   }
+
   Search() {
     console.log(this.username);
     if (this.username == "") {
