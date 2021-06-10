@@ -42,9 +42,9 @@ export class AuthenticationService {
       "password": signinData.getPassword()
     }
 
-    return this.http.post<User>("http://localhost:8080/api/account/login", JSON.stringify(body), options).pipe(map(res => {
+    return this.http.post<User>("http://localhost:8080/api/auth/login", JSON.stringify(body), options).pipe(map(res => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('accessToken', res['accesToken']);
+      localStorage.setItem('accessToken', res['accessToken']);
       localStorage.setItem('refreshToken', res['refreshToken']);
       // this.currentUserSubject.next(res);
       this.isAuthenticated = true;
@@ -60,25 +60,27 @@ export class AuthenticationService {
       headers: new HttpHeaders().set("Content-Type", "application/json")
     }
     let body = {
-      "username": resigterData.getEmail(),
+      "username": resigterData.getUsername(),
       "password": resigterData.getPassword(),
       "fullname": resigterData.getName()
     }
 
 
     console.log(JSON.stringify(body))
-    this.http.post("http://localhost:8080/api/account", JSON.stringify(body), options).subscribe(
+    this.http.post("http://localhost:8080/api/auth/resigter", JSON.stringify(body), options).subscribe(
       data => {
         this.isAuthenticated = true;
         this.currentUserSubject.next(<User>data);
         this.router.navigate(["home"]);
-        alert("hello" + resigterData.getEmail());
+        alert("hello" + resigterData.getUsername());
         return true;
       },
       error => {
         this.isAuthenticated = false;
         this.currentUserSubject.next(null);
+        alert("Đăng ký không thành công");
         return false;
+     
       });;
 
   }

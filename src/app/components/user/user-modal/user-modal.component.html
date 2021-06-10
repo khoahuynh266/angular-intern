@@ -1,51 +1,30 @@
-<div class="modal-header">
+<div class="modal-header"   >
   <h4 class="modal-title">{{ title }}</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-    <!-- <form class="form-signin" (ngSubmit)="onSubmit(updateForm)" #updateForm="ngForm">
+  <form class="form-signin" (ngSubmit)="onSubmit(updateForm)" #updateForm="ngForm">
+    <div class="form-group">
       <div class="form-group">
         <label for="username">Email address</label>
-        <input type="email" class="form-control" id="username" value={{user.username}} ngModel>
+        <input type="email" class="form-control" name="username" [ngModel]="this.user.username" disabled />
       </div>
-      <div class="form-group">
-        <label for="fullname">Fullname</label>
-        <input  class="form-control" id="fullname" value={{user.fullname}} >
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input  class="form-control" id="phone" value={{user.phone}}>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nhanvien" value="2">
-        <label class="form-check-label" for="nhanvien">Nhân viên</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="admin" value="1">
-        <label class="form-check-label" for="admin">Admin</label>
-      </div>  <div class="d-flex  justify-content-end button-group">
-      <button type="submit" class="btn btn-primary mr-3">Save</button>
-      <button type="button" class="btn btn-outline-dark " (click)="activeModal.close('Close click')">  Close
-      </button></div>
-      </form> -->
-      <form class="form-signin" (ngSubmit)="onSubmit(updateForm)" #updateForm="ngForm">
-             <div class="form-group">
-              <label for="fullname">Fullname</label>
-        <input type="text" class="form-control" name="fullname" [(ngModel)]="userDTO.Fullname" />
-        </div>
+      <label for="fullname">Fullname</label>
+      <input type="text" class="form-control" name="fullname" [ngModel]="this.user.fullname" />
+    </div>
 
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input type="text" class="form-control" name="phone" ngModel />
-        </div>
-        <div class="form-group">
-          <label for="username">Email address</label>
-          <input type="email" class="form-control" name="username" ngModel />
-        </div>
-                <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
-        </div>
-      </form>
-  </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" class="form-control" name="phone" [ngModel]="this.user.phone" />
+    </div>
+
+    <div class="form-group d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary btn-lg mr-2" data-dismiss="modal" >Save</button>
+      <button type="button" class="close"  (click)="activeModal.dismiss()">
+      Close
+      </button>
+    </div>
+  </form>
+</div>
