@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { SignUpData } from "src/app/model/SignUpData";
-import { AuthenticationService } from "src/app/service/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { SignUpData } from 'src/app/model/SignUpData';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 @Component({
   selector: 'app-resigter',
   templateUrl: './resigter.component.html',

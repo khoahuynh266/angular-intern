@@ -1,21 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
-import { SignInData } from "src/app/model/sigInData";
-import { AuthenticationService } from "src/app/service/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SignInData } from 'src/app/model/sigInData';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  isFormInValid = false; //khong hien form invalid
+  isFormInValid = false; // khong hien form invalid
   areCredentialsInvalid = false; // khong hien sai password
-  constructor(private authenticationService: AuthenticationService ,
-    private router: Router) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   onSubmit(singInForm: NgForm) {
     if (!singInForm.valid) {
       this.isFormInValid = true;
@@ -29,25 +31,25 @@ export class LoginComponent implements OnInit {
       singInForm.value.email,
       singInForm.value.password
     );
-    this.authenticationService.login(signInData)
-    .subscribe(data => {
-      console.log(data)
-      if(data != null) {
+    this.authenticationService.login(signInData).subscribe(
+      (data) => {
+        console.log(data);
+        if (data != null) {
           this.areCredentialsInvalid = false;
-          console.log("log true");
-          this.router.navigate(["home"]);
+          console.log('log true');
+          this.router.navigate(['home']);
           return;
-        }
-        else {
+        } else {
           this.areCredentialsInvalid = true;
-          console.log("log false")
+          console.log('log false');
           return;
         }
       },
-      error => {
+      (error) => {
         this.areCredentialsInvalid = true;
-        console.log("log false")
-      });
-      this.isFormInValid = false;
+        console.log('log false');
+      }
+    );
+    this.isFormInValid = false;
   }
 }

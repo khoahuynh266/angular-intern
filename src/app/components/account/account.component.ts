@@ -8,8 +8,8 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
    providers: [AuthenticationService]
 })
 export class AccountComponent implements OnInit {
-  arrAccounts:any= []
-  constructor( private accountService : AuthenticationService) {
+  arrAccounts: any = [];
+  constructor( private accountService: AuthenticationService) {
     // accountService.getAccount().subscribe(data=> {
     //   console.log(data);
     //   this.arrAccounts = data;

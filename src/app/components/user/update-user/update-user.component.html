@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Update User</h2>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                
+                <div class="form-group">
+                    <label for="username">User Name:</label>
+                    <input type="text" formControlName="username" placeholder="username" 
+                        name="username" class="form-control" id="username">
+                </div>
+<!-- 
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" formControlName="password" [(ngModel)]="user.password" placeholder="password"
+                        name="password" class="form-control" id="password">
+                </div> -->
+                <!-- can add repassowrd -->
+
+                <div class="form-group">
+                    <label for="fullname">Full name</label>
+                    <input formControlName="fullname" placeholder="Full name" 
+                        name="fullname" class="form-control" id="fullName">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="number" formControlName="phone" placeholder="Phone"
+                        name=" phone" class="form-control" id="phone">
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="salary">Salary:</label>
+                    <input type="number" formControlName="salary" placeholder="salary" name="salary"
+                        class="form-control" id="salary">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <input type="number" formControlName="role" placeholder="role" name="role" class="form-control"
+                        id="role">
+                </div> -->
+
+                <div class="btn-group inline float-right">
+                    <button class="btn btn-primary mr-4 btn-lg" type="submit">Update</button>
+                    <button class="btn btn-outline-dark" (click)="close()">Close</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

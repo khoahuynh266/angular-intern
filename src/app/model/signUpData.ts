@@ -4,29 +4,33 @@ export class SignUpData {
   private fullname: string;
   private phone: string;
 
-
-  constructor(username: string, password: string, fullname: string, phone: string){
+  constructor(
+    username: string,
+    password: string,
+    fullname: string,
+    phone: string
+  ) {
     this.username = username;
-    this.password =password;
+    this.password = password;
     this.fullname = fullname;
     this.phone = phone;
   }
 
   // constructor(username: string, password: string, fullname: string){
-  //   this.username = username;
+  //   this.usernclame = username;
   //   this.password =password;
   //   this.fullname = fullname;
   // }
-  getUsername() :string{
+  getUsername(): string {
     return this.username;
   }
-  getPassword() :string{
+  getPassword(): string {
     return this.password;
   }
-  getName() :string{
+  getName(): string {
     return this.fullname;
   }
-  getPhone() : string{
-    return  this.phone;
+  getPhone(): string {
+    return this.phone;
   }
 }

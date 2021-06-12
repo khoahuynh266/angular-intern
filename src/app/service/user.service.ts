@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { SignUpData } from '../model/SignUpData';
 
 @Injectable({
@@ -9,65 +10,61 @@ import { SignUpData } from '../model/SignUpData';
 export class UserService {
   currentUser: any;
 
-  constructor(private http: HttpClient,
-    private router: Router) { }
-     
+  constructor(private http: HttpClient) { }
+  baseUrl: string = 'http://localhost:8080/api/account/';
   getUser() {
-    // console.log(localStorage.getItem('accessToken'));
-    var token = localStorage.getItem('accessToken');
-
+    let token = localStorage.getItem('accessToken');
     let options = {
-      headers: new HttpHeaders().set("Content-Type", "application/json").set("Authorization", 'Bearer ' + token)
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
     };
-    return this.http.get("http://localhost:8080/api/account", options)
+    return this.http.get(this.baseUrl, options);
   }
 
   deleteUser(id: number) {
-    var token = localStorage.getItem('accessToken');
-
+    let token = localStorage.getItem('accessToken');
     let options = {
-      headers: new HttpHeaders().set("Content-Type", "application/json").set("Authorization", 'Bearer ' + token)
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
     };
-    console.log(id);
-    this.http.delete("http://localhost:8080/api/account/" + id, options)
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+    return this.http.delete(this.baseUrl + id, options);
   }
 
-  getCurrentUser(id: String) {
-    var token = localStorage.getItem('accessToken');
-
+  getCurrentUser(id: number) : Observable<any>  {
+    let token = localStorage.getItem('accessToken');
     let options = {
-      headers: new HttpHeaders().set("Content-Type", "application/json").set("Authorization", 'Bearer ' + token)
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
     };
-    this.currentUser = this.http.get("http://localhost:8080/api/account" + id, options)
-  }
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
+   return this.currentUser = this.http.get(this.baseUrl  + id, options);
   }
 
-  updateUser(updateData: SignUpData,id): any {
-    console.log(updateData.getName())
-    var token = localStorage.getItem('accessToken');
+  updateUser(param, id): any {
+    let token = localStorage.getItem('accessToken');
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
+    };
+    return this.http.put(this.baseUrl + id, param, options)
+  }
+
+  addUser(createData: SignUpData): any {
+    let token = localStorage.getItem('accessToken');
 
     let options = {
-      headers: new HttpHeaders().set("Content-Type", "application/json").set("Authorization", 'Bearer ' + token)
+      headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
     };
-    let body = {
-      "username": updateData.getUsername(),
-      "password": updateData.getPassword(),
-      "fullname": updateData.getName(),
-      "phone" : updateData.getPhone()
-    }
-    console.log(JSON.stringify(body))
-    this.http.put("http://localhost:8080/api/account/"+ id, JSON.stringify(body), options).subscribe(
-      data => {
-        return true;
-      },
-      error => {
-        return false;
-      });;
+    // let body = {
+    //   'username': createData.getUsername(),
+    //   'password': createData.getPassword(),
+    //   'fullname': createData.getName(),
+    //   'phone' : createData.getPhone()
+    // };
+    // console.log(JSON.stringify(body));
+     return this.http.post('http://localhost:8080/api/account/' , JSON.stringify(createData), options)
+  //    .subscribe(
+  //     data => {
+  //       return true;
+  //     },
+  //     error => {
+  //       return false;
+  //     });
   }
 
 }

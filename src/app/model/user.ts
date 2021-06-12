@@ -3,6 +3,7 @@ export class User {
   username: string;
   password: string;
   fullname: string;
+  phone:string;
   accesToken?: string;
  refreshToken?: string;
 }
