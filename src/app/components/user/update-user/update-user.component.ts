@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { User } from "src/app/model/user";
 import { UserService } from "src/app/service/user.service";
+import { UserModalComponent } from "../user-modal/user-modal.component";
 
 @Component({
   selector: "app-update-user",
@@ -14,7 +16,8 @@ export class UpdateUserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal
   ) {}
   updateForm: FormGroup;
   id: number;
@@ -39,18 +42,29 @@ export class UpdateUserComponent implements OnInit {
       },
       (error) => console.log(error)
     );
-
     console.log(this.id);
   }
+
+  openModal(title, mess, type) {
+    const modalRef = this.modalService.open(UserModalComponent);
+    modalRef.componentInstance.title = [title, type];
+    modalRef.componentInstance.message = mess;
+    modalRef.componentInstance.isConfirm = false;
+  }
+
   close() {
     this.router.navigate(["user"]);
   }
 
   onSubmit() {
-    console.log(this.user)
-    this.userService.updateUser(this.updateForm.value, this.id)
-      .subscribe((data) => {
-        this.router.navigate(["user"]);
-      });
+    console.log(this.user);
+    this.userService.updateUser(this.updateForm.value, this.id).subscribe(
+      (data) => {
+        this.openModal("Success", "Update successfully", "alert-success");
+      },
+      (error) => {
+        this.openModal("Fail", "Update failed", "alert-danger");
+      }
+    );
   }
 }

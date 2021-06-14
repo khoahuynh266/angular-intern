@@ -1,59 +1,84 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { Router } from "@angular/router";
 import {
   ModalDismissReasons,
   NgbActiveModal,
+  NgbModal,
 } from "@ng-bootstrap/ng-bootstrap";
-import { SignUpData } from "src/app/model/SignUpData";
 import { User } from "src/app/model/user";
-
-import { UserService } from "src/app/service/user.service";
 @Component({
   selector: "app-user-modal",
   templateUrl: "./user-modal.component.html",
   styleUrls: ["./user-modal.component.css"],
 })
-export class UserModalComponent implements OnInit  {
+export class UserModalComponent implements OnInit {
   @Input() title;
-  @Input() user;
+  @Input() message;
+  @Input() isConfirm;
   @Output() eventUpdate = new EventEmitter<User>();
 
+  closeResult: string;
+
   constructor(
+    private modalService: NgbModal,
     public activeModal: NgbActiveModal,
-    private userService: UserService
+    private router: Router,
   ) {}
   ngOnInit() {}
+  public decline() {
+    this.activeModal.close(false);
+  }
 
-  onSubmit(updateForm: NgForm) {
-    let username, fullname, phone;
-    if (updateForm.value.username === "") {
-      username = this.user.username;
-    } else {
-      username = updateForm.value.username;
-    }
-    if (updateForm.value.fullname === "") {
-      fullname = this.user.fullname;
-    } else {
-      fullname = updateForm.value.fullname;
-    }
-    if (updateForm.value.phone === "") {
-      phone = this.user.phone;
-    } else {
-      phone = updateForm.value.phone;
-    }
+  public accept() {
+    
+    this.activeModal.close(true);
+  }
 
-    const data = new SignUpData(
-      username,
-      "",
-      fullname,
-      //  signUpForm.value.role
-      updateForm.value.phone
-    );
-    this.userService.updateUser(data, this.user.id);
-    this.activeModal.close(data);
-    this.user=data;
-    // call refreshdata ở UserComponent
-    this.eventUpdate.emit(this.user);  
-  }  
+  public dismiss() {
+    this.activeModal.dismiss();
+  }
+
   
+  // open(content) {
+  //   this.modalService
+  //     .open(content, { ariaLabelledBy: "modal-basic-title" })
+  //     .result.then(
+  //       (result) => {
+  //         this.closeResult = `Closed with: ${result}`;
+  //       },
+  //       (reason) => {
+  //         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //       }
+  //     );
+  // }
+  
+  close(event) {
+    this.activeModal.close(event);
+    this.router.navigate(["user"]);
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return "by pressing ESC";
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return "by clicking on a backdrop";
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  public confirm(
+    title: string,
+    message: string,
+    dialogSize: "sm" | "lg" = "sm"
+  ): Promise<boolean> {
+    const modalRef = this.modalService.open(UserModalComponent, {
+      size: dialogSize,
+    });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.message = message;
+
+    return modalRef.result;
+  }
 }
+
+
