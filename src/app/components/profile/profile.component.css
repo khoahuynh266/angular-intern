@@ -1,0 +1,9 @@
+.bold{
+    font-weight: bold;
+}
+.pointer{
+    cursor: pointer;
+  }
+  .jumbotron{
+    background-color: #efd380;
+  }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "src/app/service/user.service";
+import { UserModalComponent } from "../user-modal/user-modal.component";
 
 @Component({
   selector: "app-add-user",
@@ -12,7 +14,8 @@ export class AddUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: NgbModal
   ) {}
   addForm: FormGroup;
 
@@ -26,10 +29,25 @@ export class AddUserComponent implements OnInit {
       // salary: ['']
     });
   }
-  close() {}
+  close() {
+    this.router.navigate(["user"]);
+  }
   onSubmit() {
-    this.userService.addUser(this.addForm.value).subscribe((data) => {
-      this.router.navigate(["user"]);
-    });
+    this.userService.addUser(this.addForm.value).subscribe(
+      (data) => {
+        this.openModal("Success", "Add user successfully", "alert-success");
+        this.router.navigate(["user"]);
+      },
+      (error) => {
+        console.log(error.error)
+        this.openModal("Fail", error.error, "alert-danger");
+      }
+    );
+  }
+  openModal(title, mess, type) {
+    const modalRef = this.modalService.open(UserModalComponent);
+    modalRef.componentInstance.title = [title, type];
+    modalRef.componentInstance.message = mess;
+    modalRef.componentInstance.isConfirm = false;
   }
 }

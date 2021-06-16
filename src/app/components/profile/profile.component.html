@@ -1,42 +1,64 @@
-<div class="profile-page">
-  <div class="user-info">
-    <div class="container">
-      <div class="row">
-
-        <div class="col-xs-12 col-md-10 offset-md-1">
-          <img [src]="" class="user-img" />
-          <h4>{{ profile.username }}</h4>
-          <p>{{ profile.fullname }}</p>
-           <!-- <a [routerLink]="['/Edit']"
-              [hidden]="!isUser"
-              class="btn btn-sm btn-outline-secondary action-btn">
-              <i class="ion-gear-a"></i> Edit Profile Settings
-            </a> -->
-        </div>
-
-      </div>
+<div class="container rounded bg-white mt-5">
+  <div class="jumbotron">
+    <div class="container align-items-center text-center">
+      <h1 class="display">User Profile</h1>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-3 border-right">
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+          onerror="this.src='https://saiuniversity.edu.in/wp-content/uploads/2021/02/default-img.jpg'"
+          src={{profileForm.value.avatar}} width="90"><span
+          class="font-weight-bold"></span>{{profileForm.value.fullname}}<span
+          class="text-black-50">{{profileForm.value.username}}</span><span>{{profileForm.value.address}}</span></div>
+    </div>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="col-md-9">
+      <div class="p-3 py-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div routerLink="/home" class="d-flex flex-row align-items-center back pointer"><i
+              class="fa fa-arrow-left mr-1 mb-1"></i>
+            <h6>Back to home</h6>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-6 bold"> <label for="username">Username</label>
+            <input formControlName="username" class="form-control" disabled>
+          </div>
+          <div class="col-md-6 bold"> <label for="fullname">Full name</label>
+            <input id="fullname" formControlName="fullname" class="form-control" placeholder="Fullname">
+          </div>
+        </div>
 
-  <div class="container">
-    <div class="row">
+        <div class="row mt-3 bold">
+          <div class="col-md-6 bold"> <label for="rolename">Role</label>
+            <input formControlName="rolename" class="form-control" placeholder="roles" disabled>
+          </div>
+          <div class="col-md-6 bold"> <label for="sex">Sex</label>
+            <input formControlName="sex" class="form-control" placeholder="sex">
+          </div>
+        </div>
 
-      <div class="col-xs-12 col-md-10 offset-md-1">
-        <div class="articles-toggle">
-          <ul class="nav nav-pills outline-active">
-            <li class="nav-item">
-              <a class="nav-link">
-                 My Posts
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">
-                 Favorited Posts
-              </a>
-            </li>
-          </ul>
+        <div class="row mt-3">
+          <div class="col-md-6 bold"> <label for="phone">Phone number</label>
+            <input formControlName="phone" class="form-control" placeholder="Phone number">
+          </div>
+          <div class="col-md-6 bold"> <label for="birthday">Birthday</label>
+            <input formControlName="birthday" class="form-control">
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6 bold"> <label for="departmentname">Department</label>
+            <input formControlName="departmentname" class="form-control" placeholder="Department">
+          </div>
+          <div class="col-md-6 bold"> <label for="address">Address</label>
+            <input formControlName="address" class="form-control" placeholder="Address">
+          </div>
+        </div>
+        <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="submit">Save
+            Profile</button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

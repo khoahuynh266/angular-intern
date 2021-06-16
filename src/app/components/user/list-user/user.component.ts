@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserService } from "src/app/service/user.service";
-import { ModalConfirmComponent } from "../modal-confirm/modal-confirm.component";
 import { UserModalComponent } from "../user-modal/user-modal.component";
 
 @Component({
@@ -19,33 +18,26 @@ export class UserComponent implements OnInit {
   id: number;
   constructor(
     // private http: HttpClient,
-    private userService: UserService,
     private router: Router,
+    private userService: UserService,
     private modalService: NgbModal
   ) {}
 
-  delete(id: number) {
-    let confirm;
+  deleteUser(id, username) {
     const deletedID = this.arrAccounts.find((x) => x.id === id);
-
-    const modalRef = this.modalService.open(ModalConfirmComponent);
-    // modalRef.componentInstance.title = ["Delete User ID :" + deletedID.id,"alter-danger"];
-    // modalRef.componentInstance.id = id;
-    modalRef.componentInstance.mesage = "Are you sure to delete " + this.arrAccounts[deletedID.username];
-    // modalRef.componentInstance.isConfirm = true;
+    const modalRef = this.modalService.open(UserModalComponent);
+    modalRef.componentInstance.title = ["Delete User id :" + deletedID.id,];
+    modalRef.componentInstance.message = "Are you sure to delete " + username;
+    modalRef.componentInstance.isConfirm = true;
     modalRef.result
       .then((confirmed) => {
         if (confirmed === true) {
-          confirm = confirmed;
-          console.log("User confirmed:", confirmed);
-          this.userService.deleteUser(id);
+          this.userService.deleteUser(id).subscribe((data) => {
             this.arrAccounts.splice(this.arrAccounts.indexOf(deletedID), 1);
-           
+          });
         }
       })
       .catch(() => {});
-
-
   }
 
   public onClose() {
@@ -56,7 +48,7 @@ export class UserComponent implements OnInit {
   }
 
   public refreshData() {
-    this.userService.getUser().subscribe((data) => {
+    this.userService.getListUser().subscribe((data) => {
       console.log(data);
       this.arrAccounts = data;
     });

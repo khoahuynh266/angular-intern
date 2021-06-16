@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   baseUrl: string = 'http://localhost:8080/api/account/';
-  getUser() {
+  getListUser() {
     let token = localStorage.getItem('accessToken');
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
@@ -28,7 +28,7 @@ export class UserService {
     return this.http.delete(this.baseUrl + id, options);
   }
 
-  getCurrentUser(id: number) : Observable<any>  {
+  getUser(id: number) : Observable<any>  {
     let token = localStorage.getItem('accessToken');
     let options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)

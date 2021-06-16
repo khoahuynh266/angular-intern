@@ -1,5 +1,5 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="header ml-10">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mar">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
       aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,11 +13,19 @@
           <a class="nav-link" routerLink="user">List User</a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item" *ngIf="authenticationService.currentUserValue">
-          <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png"
-            class="rounded-circle img-sm nav-link" routerLink="profile" alt="profile image" />
-          <span>Profile</span>
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item pointer mr-4" *ngIf="authenticationService.currentUserValue">
+          <div class="row dropdown">
+      
+            <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png"
+              class="rounded-circle img-sm nav-link btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"  alt="profile image" /> 
+        
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" routerLink="changePassword" >Change password</a>
+              <a class="dropdown-item" routerLink="profile">Profile</a>
+            </div>
+          </div>
         </li>
         <li class="nav-item" *ngIf="!authenticationService.currentUserValue">
           <a class="nav-link" routerLink="login">Login</a>
@@ -31,6 +39,5 @@
       </ul>
     </div>
   </nav>
-</header>
-
+</div>
 <router-outlet></router-outlet>

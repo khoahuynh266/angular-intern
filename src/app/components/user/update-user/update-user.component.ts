@@ -35,7 +35,7 @@ export class UpdateUserComponent implements OnInit {
       // salary: ['']
     });
 
-    this.userService.getCurrentUser(this.id).subscribe(
+    this.userService.getUser(this.id).subscribe(
       (data) => {
         this.user = data;
         this.updateForm.patchValue(this.user);
@@ -50,6 +50,7 @@ export class UpdateUserComponent implements OnInit {
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;
+    this.router.navigate(["user"]);
   }
 
   close() {
@@ -60,10 +61,10 @@ export class UpdateUserComponent implements OnInit {
     console.log(this.user);
     this.userService.updateUser(this.updateForm.value, this.id).subscribe(
       (data) => {
-        this.openModal("Success", "Update successfully", "alert-success");
+        this.openModal("Success", "Update user successfully!", "alert-success");
       },
       (error) => {
-        this.openModal("Fail", "Update failed", "alert-danger");
+        this.openModal("Fail", "User update is failed!", "alert-danger");
       }
     );
   }

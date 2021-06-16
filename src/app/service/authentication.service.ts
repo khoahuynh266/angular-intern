@@ -14,7 +14,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private isAuthenticated: boolean;
+  public isAuthenticated: boolean;
 
   constructor(private http: HttpClient,
     private router: Router) {
@@ -28,7 +28,6 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
 }
 
-
   getToken() {
     console.log(localStorage.getItem('accessToken'));
     return localStorage.getItem('accessToken');
@@ -38,7 +37,7 @@ export class AuthenticationService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
     let body = {
-      'username': signinData.getEmail(),
+      'username': signinData.getUsername(),
       'password': signinData.getPassword()
     };
 
@@ -48,7 +47,7 @@ export class AuthenticationService {
       localStorage.setItem('refreshToken', res['refreshToken']);
       // this.currentUserSubject.next(res);
       this.isAuthenticated = true;
-      localStorage.setItem('currentUser', JSON.stringify(res));
+      localStorage.setItem('currentUser', JSON.stringify(res['id']));
       this.currentUserSubject.next(res);
       return res;
     }));
@@ -64,15 +63,15 @@ export class AuthenticationService {
       'password': resigterData.getPassword(),
       'fullname': resigterData.getName()
     };
-
-
-    console.log(JSON.stringify(body));
     this.http.post('http://localhost:8080/api/auth/resigter', JSON.stringify(body), options).subscribe(
       data => {
         this.isAuthenticated = true;
-        this.currentUserSubject.next(<User> data);
+        const signInData = new SignInData(
+          resigterData.getUsername(),
+          resigterData.getPassword()
+        );
+        this.login(signInData);
         this.router.navigate(['home']);
-         alert('Đăng ký không thành công');
         return true;
       },
       error => {
@@ -86,6 +85,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
     this.isAuthenticated = false

@@ -1,11 +1,11 @@
 <div class="modal-content">
-  <div class="modal-header">
-    <h4 class="modal-title " id="modal-basic-title">{{title[0]}}</h4>
+  <div class="modal-header {{title[1]}}">
+    <h4 class="modal-title " >{{title[0]}}</h4>
   </div>
-  <div class="modal-body  {{title[1]}}">
+  <div class="modal-body   {{title[1]}}">
     {{message}}
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer  {{title[1]}}">
     <button type="button" class="btn btn-primary" (click)="accept()">Ok</button>
     <button type="button" *ngIf="isConfirm" class="btn btn-outline-dark" (click)="decline()">Close</button>
   </div>

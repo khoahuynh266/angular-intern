@@ -1,6 +1,10 @@
-.pointer{
+.pointer {
   cursor: pointer;
 }
 .img-sm {
   width: 3rem;
+}
+.navbar {
+  /* padding-left: 4rem; */
+  padding-right: 4rem;
 }
