@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { UserService } from "src/app/service/user.service";
-import { UserModalComponent } from "../user-modal/user-modal.component";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/service/user.service';
+import { UserModalComponent } from '../user-modal/user-modal.component';
 
 @Component({
-  selector: "app-add-user",
-  templateUrl: "./add-user.component.html",
-  styleUrls: ["./add-user.component.css"],
+  selector: 'app-add-user',
+  templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
   constructor(
@@ -22,28 +22,28 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       id: [],
-      username: ["", Validators.required],
-      password: ["", Validators.required],
-      fullname: ["", Validators.required],
-      phone: ["", Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      fullname: ['', Validators.required],
+      phone: ['', Validators.required],
       // salary: ['']
     });
   }
   close() {
-    this.router.navigate(["user"]);
+    this.router.navigate(['user']);
   }
   onSubmit() {
     this.userService.addUser(this.addForm.value).subscribe(
       (data) => {
-        this.openModal("Success", "Add user successfully", "alert-success");
-        this.router.navigate(["user"]);
+        this.openModal('Success', 'Add user successfully', 'alert-success');
+        this.router.navigate(['user']);
       },
-      (error) => {
-        console.log(error.error)
-        this.openModal("Fail", error.error, "alert-danger");
+      (e) => {
+        console.log(e.error);
+        this.openModal('Fail', e.error.message, 'alert-danger');
       }
     );
-  }
+  } 
   openModal(title, mess, type) {
     const modalRef = this.modalService.open(UserModalComponent);
     modalRef.componentInstance.title = [title, type];

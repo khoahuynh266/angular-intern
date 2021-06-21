@@ -21,7 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddUserComponent } from './components/user/add-user/add-user.component';
 import { UpdateUserComponent } from './components/user/update-user/update-user.component';
 import { UserComponent } from './components/user/list-user/user.component';
-import { ModalConfirmComponent } from './components/user/modal-confirm/modal-confirm.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,7 @@ import { ModalConfirmComponent } from './components/user/modal-confirm/modal-con
     UserModalComponent,
     AddUserComponent,
     UpdateUserComponent,
-    ModalConfirmComponent
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

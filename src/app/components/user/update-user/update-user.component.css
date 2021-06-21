@@ -2,10 +2,18 @@
     margin: 10rem auto;
     width: 40rem ;
   }
-  input{
+  /* input{
     margin-bottom: 2rem;
-  }
+  } */
   .card-header{
   padding-top: 1rem;
   }
-  
+  .bold{
+    font-weight: bold;
+}
+.pointer{
+    cursor: pointer;
+  }
+  .jumbotron{
+    background-color: #efd380;
+  }

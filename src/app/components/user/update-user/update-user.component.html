@@ -1,54 +1,59 @@
-<div class="wrapper">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="text-center">Update User</h2>
+<div class="container rounded bg-white mt-5">
+    <div class="jumbotron">
+        <div class="container align-items-center text-center">
+            <h1 class="display">Update User </h1>
         </div>
-        <div class="card-body">
-            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-                
-                <div class="form-group">
-                    <label for="username">User Name:</label>
-                    <input type="text" formControlName="username" placeholder="username" 
-                        name="username" class="form-control" id="username">
+    </div>
+    <div class="row">
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="col">
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div routerLink="/home" class="d-flex flex-row align-items-center back pointer"><span
+                            class="fa fa-arrow-left mr-1 mb-1 "></span>
+                        <h6>Back to home</h6>
+                    </div>
                 </div>
-<!-- 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" formControlName="password" [(ngModel)]="user.password" placeholder="password"
-                        name="password" class="form-control" id="password">
-                </div> -->
-                <!-- can add repassowrd -->
-
-                <div class="form-group">
-                    <label for="fullname">Full name</label>
-                    <input formControlName="fullname" placeholder="Full name" 
-                        name="fullname" class="form-control" id="fullName">
+                <div class="row mt-2">
+                    <div class="col-md-6 bold"> <label for="username">Username</label>
+                        <input formControlName="username" class="form-control">
+                    </div>
+                    <div class="col-md-6 bold"> <label for="fullname">Full name</label>
+                        <input id="fullname" formControlName="fullname" class="form-control" placeholder="Fullname">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="number" formControlName="phone" placeholder="Phone"
-                        name=" phone" class="form-control" id="phone">
+                <div class="row mt-3 bold">
+                    <div class="col-md-6 bold"> <label for="rolename">Role</label>
+                        <input formControlName="rolename" class="form-control" placeholder="roles">
+                    </div>
+                    <div class="col-md-6 bold"> <label for="sex">Sex</label>
+                        <input formControlName="sex" class="form-control" placeholder="sex">
+                    </div>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label for="salary">Salary:</label>
-                    <input type="number" formControlName="salary" placeholder="salary" name="salary"
-                        class="form-control" id="salary">
+                <div class="row mt-3">
+                    <div class="col-md-6 bold"> <label for="phone">Phone number</label>
+                        <input formControlName="phone" class="form-control" placeholder="Phone number">
+                    </div>
+                    <div class="col-md-6 bold"> <label for="birthday">Birthday</label>
+                        <input formControlName="birthday" class="form-control" placeholder="Birthday">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="role">Role:</label>
-                    <input type="number" formControlName="role" placeholder="role" name="role" class="form-control"
-                        id="role">
-                </div> -->
-
-                <div class="btn-group inline float-right">
-                    <button class="btn btn-primary mr-4 btn-lg" type="submit">Update</button>
-                    <button class="btn btn-outline-dark" (click)="close()">Close</button>
+                <div class="row mt-3">
+                    <div class="col-md-6 bold"> <label for="departmentname">Department</label>
+                        <input formControlName="departmentname" class="form-control" placeholder="Department">
+                    </div>
+                    <div class="col-md-6 bold"> <label for="address">Address</label>
+                        <input formControlName="address" class="form-control" placeholder="Address">
+                    </div>
                 </div>
-
-            </form>
-        </div>
+                <div class="mt-5 text-right">
+                    <button class="btn btn-primary profile-button" type="submit">Save
+                    </button>
+                    <button class="btn btn-outline-dark ml-4" (click)="close()">Close</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

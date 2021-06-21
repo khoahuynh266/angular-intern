@@ -1,11 +1,11 @@
 .login-wrapper{
   margin: 10rem auto;
   width: 35rem ;
-  text-align: center;
+
 }
-input{
+/* input{
   margin-bottom: 2rem;
-}
+} */
 .card-header{
 padding-top: 1rem;
 }

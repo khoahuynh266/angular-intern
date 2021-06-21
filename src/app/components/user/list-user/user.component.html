@@ -1,14 +1,16 @@
+
 <div class="container rounded bg-white mt-5">
   <div class="jumbotron center">
     <h1>List Account</h1>
     <p class="lead">This is List Account</p>
   </div>
-  <form class="form-row ">
+
+  <form class="form-row">
     <div class="col">
-    <input class="form-control inline mr-sm-4 my-1 " type="text" name="username" [(ngModel)]="username"
-      (ngModelChange)="Search()" placeholder="Search">
-    <!-- <button class="button" (click)="Search()" >Seacrh</button> -->
-  </div>
+      <input class="form-control inline mr-sm-4 my-1 " type="text" name="username" [(ngModel)]="username"
+        (ngModelChange)="Search()" placeholder="Search">
+      <!-- <button class="button" (click)="Search()" >Seacrh</button> -->
+    </div>
     <div class="col">
       <div name="btn-addUser" class="btn btn-primary mr-2 float-right " (click)="addUser()">Add user</div>
     </div>
@@ -22,6 +24,7 @@
         <th (click)="sort('username')"><i class="fas fa-sort" style="color: aliceblue;"></i>Username</th>
         <th (click)="sort('fullname')"><i class="fas fa-sort" style="color: aliceblue;"></i>Fullname</th>
         <th scope="col">Phone</th>
+        <th scope="col">Status</th>
         <th scope="col">Manage</th>
       </tr>
     </thead>
@@ -31,11 +34,16 @@
         <td>{{ account.username }}</td>
         <td>{{ account.fullname }}</td>
         <td>{{ account.phone }}</td>
+        <td> <label class="switch">
+            <input type="checkbox" [(ngModel)]="account.active"  (change)="changeActive($event.targe,account)" >
+            <span class="slider round"></span>
+          </label></td>
+  
         <td>
 
           <div name="btn-updateUser" class="btn btn-success mr-2  " (click)="updateUser(account.id)">update</div>
-                <div class="btn btn-danger" (click)="deleteUser(account.id,account.username)">Delete</div>
-          
+          <div class="btn btn-danger" (click)="deleteUser(account.id, account.username)">Delete</div>
+
         </td>
       </tr>
     </tbody>

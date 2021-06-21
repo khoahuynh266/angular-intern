@@ -2,14 +2,14 @@ export class SignInData {
   private username: string;
   private password: string;
 
-  constructor(username: string, password: string){
+  constructor(username: string, password: string) {
     this.username = username;
-    this.password =password;
+    this.password = password;
   }
-  getUsername() :string{
+  getUsername() : string {
     return this.username;
   }
-  getPassword() :string {
+  getPassword() : string {
     return this.password;
   }
 }

@@ -20,8 +20,8 @@ export class AuthenticationService {
     private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    if (this.currentUserValue) { this.isAuthenticated = true; }
-    else { this.isAuthenticated = false; }
+    // if (this.currentUserValue) { this.isAuthenticated = true; }
+    // else { this.isAuthenticated = false; }
     console.log(this.currentUserSubject);
   }
   public get currentUserValue(): User {
@@ -47,48 +47,36 @@ export class AuthenticationService {
       localStorage.setItem('refreshToken', res['refreshToken']);
       // this.currentUserSubject.next(res);
       this.isAuthenticated = true;
-      localStorage.setItem('currentUser', JSON.stringify(res['id']));
+      localStorage.setItem('currentUser', JSON.stringify(res));
+      localStorage.setItem('currentId', JSON.stringify(res['id']));
       this.currentUserSubject.next(res);
       return res;
     }));
   }
-
-  resigter(resigterData: SignUpData): any {
-    console.log(resigterData.getName());
-    let options = {
+   
+changePassword(param, id): any {
+  const token = localStorage.getItem('accessToken');  
+  const options = {
+    headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + token)
+  };
+  return this.http.post('http://localhost:8080/api/auth/changePassword/' + id, param, options);
+}
+  resigter(param): any {
+    const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
-    let body = {
-      'username': resigterData.getUsername(),
-      'password': resigterData.getPassword(),
-      'fullname': resigterData.getName()
-    };
-    this.http.post('http://localhost:8080/api/auth/resigter', JSON.stringify(body), options).subscribe(
-      data => {
-        this.isAuthenticated = true;
-        const signInData = new SignInData(
-          resigterData.getUsername(),
-          resigterData.getPassword()
-        );
-        this.login(signInData);
-        this.router.navigate(['home']);
-        return true;
-      },
-      error => {
-        this.isAuthenticated = false;
-        this.currentUserSubject.next(null);
-  
-        return false;
-      });
-  }
+
+    return  this.http.post('http://localhost:8080/api/auth/resigter', param, options);
+    }
 
   logout() {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.clear();
+    // localStorage.removeItem('currentUser');
+    // localStorage.removeItem('accessToken');
+    // localStorage.removeItem('refreshToken');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
-    this.isAuthenticated = false
+    this.isAuthenticated = false;
     console.log(this.currentUserSubject);
-  };
+  }
 }
