@@ -9,6 +9,7 @@ import {
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticationService } from "src/app/service/authentication.service";
+import { EncrDecrService } from "src/app/service/encr-decr-service.service";
 import { UserModalComponent } from "../user/user-modal/user-modal.component";
 @Component({
   selector: "app-resigter",
@@ -22,7 +23,8 @@ export class ResigterComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private EncrDecr: EncrDecrService
   ) {}
 
   signUpForm: FormGroup;
@@ -63,10 +65,11 @@ export class ResigterComponent implements OnInit {
   onSubmit(signUpForm: NgForm) {
     this.submitted = true;
     // stop here if form is invalid
-    console.log(this.signUpForm.value);
+    
     if (this.signUpForm.invalid) {
         return;
     }
+   this.signUpForm.value.password = this.EncrDecr.set(this.signUpForm.value.password);console.log(this.signUpForm.value);
     this.authenticationService.resigter(this.signUpForm.value)
     .subscribe(
       (data) => {
@@ -85,7 +88,7 @@ export class ResigterComponent implements OnInit {
     this.signUpForm.reset();
   }
   openModal(title, mess, type) {
-    const modalRef = this.modalService.open(UserModalComponent);
+    const modalRef = this.modalService.open(UserModalComponent,{centered:true});
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;

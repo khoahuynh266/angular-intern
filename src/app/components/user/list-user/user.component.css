@@ -1,6 +1,9 @@
 .center{
   text-align: center;
 }
+.rounded{
+  margin-top: 8rem !important
+}
 .jumbotron{
   background-color: #efd380;
 }
@@ -53,7 +56,9 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
+.fa{
+  color:#f1f2f3  !important
+}
 
 
 
@@ -83,5 +88,5 @@ body {
 }
 
 .container {
-  margin: 0 auto;
+  margin:  auto;
 }

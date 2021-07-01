@@ -1,9 +1,12 @@
-.bold{
-    font-weight: bold;
+.bold {
+  font-weight: bold;
 }
-.pointer{
-    cursor: pointer;
-  }
-  .jumbotron{
-    background-color: #efd380;
-  }
+.pointer {
+  cursor: pointer;
+}
+.jumbotron {
+  background-color: #efd380;
+}
+.rounded{
+  margin-top: 8rem !important
+}

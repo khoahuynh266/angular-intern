@@ -1,21 +1,24 @@
+
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticationService } from "src/app/service/authentication.service";
-import { UserModalComponent } from "../user/user-modal/user-modal.component";
 import * as CryptoJS from "crypto-js";
 import { EncrDecrService } from "src/app/service/encr-decr-service.service";
+import { UserModalComponent } from "../user-modal/user-modal.component";
 @Component({
-  selector: "app-change-password",
-  templateUrl: "./change-password.component.html",
-  styleUrls: ["./change-password.component.css"],
+  selector: 'app-admin-update-password',
+  templateUrl: './admin-update-password.component.html',
+  styleUrls: ['./admin-update-password.component.css']
 })
-export class ChangePasswordComponent implements OnInit {
+export class AdminUpdatePasswordComponent implements OnInit {
+
   changePasswordForm: FormGroup;
   submitted = false;
   oldPassword: string;
   conversionEncryptOutput: any;
+  isAdmin = false;
   constructor(
     fb: FormBuilder,
     private authenticateService: AuthenticationService,
@@ -26,39 +29,28 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     this.changePasswordForm = fb.group(
       {
-        oldPassword: [null,  [Validators.minLength(3)]],
         newPassword: [null, [Validators.required,Validators.minLength(3)]],
         confirmPassword: [null, [ Validators.required,Validators.minLength(3)]],
       },
       {
         validators: [
           this.MustMatch("newPassword", "confirmPassword"),
-          this.MustNotMatch("oldPassword", "newPassword"),
         ],
       }
     );
   }
   id;
   changePassword() {
-
     console.log("id "+this.id)
-    this.conversionEncryptOutput = this.EncrDecr.set(
-      this.changePasswordForm.value.oldPassword.trim()
-    );
-
     this.submitted = true;
-    // const id = parseInt(localStorage.getItem('currentId'));
     const body = {
-      oldPassword: this.EncrDecr.set(
-        this.changePasswordForm.value.oldPassword.trim()
-      ),
       newPassword: this.EncrDecr.set(
         this.changePasswordForm.value.newPassword.trim()
       ),
     };
     console.log(body.newPassword);
     if (this.changePasswordForm.valid) {
-      this.authenticateService.changePassword(body, this.id).subscribe(
+      this.authenticateService.adminChangePassword(body, this.id).subscribe(
         (data) => {
           this.openModal(
             "Success",
@@ -70,8 +62,7 @@ export class ChangePasswordComponent implements OnInit {
           this.openModal("Fail", error.error.message, "alert-danger");
         }
       );
-    }
-  }
+    }}
   get f() {
     return this.changePasswordForm.controls;
   }
@@ -93,24 +84,6 @@ export class ChangePasswordComponent implements OnInit {
       }
     };
   }
-  MustNotMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors.mustNotMatch) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
-
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors(null);
-      } else {
-        matchingControl.setErrors({ mustNotMatch: true });
-      }
-    };
-  }
   onReset() {
     this.submitted = false;
     this.changePasswordForm.reset();
@@ -126,6 +99,6 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.id = this.authenticateService.currentUserValue.id;
-  }
+      this.id = this.activatedRoute.snapshot.params["id"];
+    }
 }

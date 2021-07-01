@@ -11,8 +11,8 @@
         <div class="form-group">
           <label for="username">Email</label>
           <input type="text" formControlName="username" class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-          <div *ngIf="submitted && f.username.errors" class="alert alert-danger" role="alert">
+          [ngClass]="{ 'is-invalid': f.username.touched && f.username.errors }" />
+          <div *ngIf="f.username.touched && f.username.errors" class="alert alert-danger" role="alert">
             <div *ngIf="f.username.errors.required">Username is required</div>
             <div *ngIf="f.username.errors.email">Please include an @ in the email address</div>
           </div>
@@ -20,8 +20,8 @@
         <div class="form-group">
           <label for="fullname">Full name</label>
           <input type="text" formControlName="fullname" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" />
-          <div *ngIf="submitted && f.fullname.errors" class="alert alert-danger" role="alert">
+            [ngClass]="{ 'is-invalid':  f.fullname.touched && f.fullname.errors }" />
+          <div *ngIf=" f.fullname.touched && f.fullname.errors" class="alert alert-danger" role="alert">
             <div *ngIf="f.fullname.errors.required">Full name is required</div>
           </div>
         </div>
@@ -29,16 +29,16 @@
         <div class="form-group">
           <label for="phone">Phone</label>
           <input type="phone" formControlName="phone" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
-          <div *ngIf="submitted && f.phone.errors" class="alert alert-danger" role="alert">
+            [ngClass]="{ 'is-invalid': f.phone.touched && f.phone.errors }" />
+          <div *ngIf="f.phone.touched && f.phone.errors" class="alert alert-danger" role="alert">
             <div *ngIf="f.phone.errors.minlength">Password must be at least 9 characters</div>
           </div>
         </div>
         <div class="form-group">
           <label for="Password">Password</label>
           <input type="password" formControlName="password" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-          <div *ngIf="submitted && f.password.errors" class="alert alert-danger" role="alert">
+            [ngClass]="{ 'is-invalid': f.password.touched && f.password.errors }" />
+          <div *ngIf="f.password.touched && f.password.errors" class="alert alert-danger" role="alert">
             <div *ngIf="f.password.errors.required">Password is required</div>
             <div *ngIf="f.password.errors.minlength">Password must be at least 3 characters</div>
           </div>
@@ -46,8 +46,8 @@
         <div class="form-group">
           <label for="ConfirmPassword">ConfirmPassword</label>
           <input type="password" formControlName="confirmPassword" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-          <div *ngIf="submitted && f.confirmPassword.errors" class="alert alert-danger" role="alert">
+            [ngClass]="{ 'is-invalid': f.confirmPassword.touched && f.confirmPassword.errors }" />
+          <div *ngIf="f.confirmPassword.touched && f.confirmPassword.errors" class="alert alert-danger" role="alert">
             <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
             <div *ngIf="f.confirmPassword.errors.mustMatch">Confirmation password do not match</div>
           </div>
@@ -69,7 +69,7 @@
           <!-- <button type="submit" class="btn btn-primary btn-lg">Sign Up</button> -->
         </div>
       </form>
-      <div class="hint-text mt-2">
+      <div class="hint-text mt-2 text-center">
         Already have an account? <a routerLink="/login">Login here</a>
       </div>
     </div>

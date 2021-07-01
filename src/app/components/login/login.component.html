@@ -5,7 +5,7 @@
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     </div>
     <div class="card-body">
-      <form class="form-signin" (ngSubmit)="onSubmit(signInForm)" #signInForm = "ngForm">
+      <form class="form-signin" (ngSubmit)="onSubmit(signInForm)" #signInForm="ngForm">
         <div class="alert alert-danger" role="alert" *ngIf="isFormInValid">
           Please fill all fields
         </div>
@@ -13,16 +13,20 @@
           Invalid user or passowrd
         </div>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
+        <input name="email" type="email" id="inputEmail" class="form-control mb2"  placeholder="Email address" required
           autofocus ngModel />
         <label for="inputPassword" class="sr-only">Password</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required
           ngModel />
-        <div class="row flex-row-reverse">
-          <div class="col-xs-6 col-sm-6">
-            <p class="forgotPwd">
-              <a class="lnk-toggler" data-panel=".panel-forgot" routerLink="/#">Forgot password?</a>
-            </p>
+        <div class="d-md-flex mt-3 mb-3">
+          <div class="w-50 text-md-left">
+            <input type="checkbox" [(ngModel)]="isRemember"  [ngModelOptions]="{standalone: true}" (change)="changeRemember($event)">
+                        <span class="checkmark  mr-2"></span>
+            <label class="checkbox-wrap checkbox-primary">Remember Me
+            </label>
+          </div>
+          <div class="w-50 text-md-right">
+              <a class="lnk-toggler" data-panel=".panel-forgot" routerLink="/forgotPassword">Forgot password?</a>
           </div>
         </div>
         <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">

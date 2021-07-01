@@ -40,12 +40,12 @@ export class AddUserComponent implements OnInit {
       },
       (e) => {
         console.log(e.error);
-        this.openModal('Fail', e.error.message, 'alert-danger');
+        this.openModal('Fail', e.error.message  , 'alert-danger');
       }
     );
   } 
   openModal(title, mess, type) {
-    const modalRef = this.modalService.open(UserModalComponent);
+    const modalRef = this.modalService.open(UserModalComponent,{centered:true});
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;

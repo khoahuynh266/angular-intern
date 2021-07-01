@@ -1,5 +1,5 @@
 
-<div class="container rounded bg-white mt-5">
+<div class="container rounded bg-white mb-5">
   <div class="jumbotron center">
     <h1>List Account</h1>
     <p class="lead">This is List Account</p>
@@ -20,9 +20,9 @@
   <table class="table table-bordered table-hover mt-3 ">
     <thead class="thead-dark">
       <tr>
-        <th (click)="sort('id')"><i class="fas fa-sort" style="color: aliceblue;"></i>#</th>
-        <th (click)="sort('username')"><i class="fas fa-sort" style="color: aliceblue;"></i>Username</th>
-        <th (click)="sort('fullname')"><i class="fas fa-sort" style="color: aliceblue;"></i>Fullname</th>
+        <th (click)="sort('id')"><span class="fas fa-sort"></span>#id</th>
+        <th (click)="sort('username')"><i class="fas fa-sort" ></i>Username</th>
+        <th (click)="sort('fullname')"><i class="fas fa-sort"></i>Fullname</th>
         <th scope="col">Phone</th>
         <th scope="col">Status</th>
         <th scope="col">Manage</th>
@@ -35,7 +35,7 @@
         <td>{{ account.fullname }}</td>
         <td>{{ account.phone }}</td>
         <td> <label class="switch">
-            <input type="checkbox" [(ngModel)]="account.active"  (change)="changeActive($event.targe,account)" >
+            <input type="checkbox" [(ngModel)]="account.active"  (change)="changeStatus($event.targe,account)" >
             <span class="slider round"></span>
           </label></td>
   
@@ -43,6 +43,7 @@
 
           <div name="btn-updateUser" class="btn btn-success mr-2  " (click)="updateUser(account.id)">update</div>
           <div class="btn btn-danger" (click)="deleteUser(account.id, account.username)">Delete</div>
+       
 
         </td>
       </tr>

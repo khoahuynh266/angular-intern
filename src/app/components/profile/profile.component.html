@@ -1,6 +1,6 @@
-<div class="container rounded bg-white mt-5">
+<div class="container rounded bg-white">
   <div class="jumbotron">
-    <div class="container align-items-center text-center">
+    <div class="align-items-center text-center">
       <h1 class="display">User Profile</h1>
     </div>
   </div>
@@ -10,8 +10,15 @@
           onerror="this.src='https://saiuniversity.edu.in/wp-content/uploads/2021/02/default-img.jpg'"
           src={{profileForm.value.avatar}} width="90"><span
           class="font-weight-bold"></span>{{profileForm.value.fullname}}<span
-          class="text-black-50">{{profileForm.value.username}}</span><span>{{profileForm.value.address}}</span></div>
-    </div>
+          class="text-black-50">{{profileForm.value.username}}</span><span>{{profileForm.value.address}}</span>
+        </div>
+        <!-- <div class="form-group">
+          <label for="file">Choose File</label>
+          <input type="file"
+                 id="file"
+                 (change)="handleFileInput($event.target.files)">
+      </div> -->
+      </div>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="col-md-9">
       <div class="p-3 py-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -31,7 +38,7 @@
 
         <div class="row mt-3 bold">
           <div class="col-md-6 bold"> <label for="rolename">Role</label>
-            <input formControlName="rolename" class="form-control" placeholder="roles" >
+            <input formControlName="rolename" class="form-control" placeholder="roles">
           </div>
           <div class="col-md-6 bold"> <label for="sex">Sex</label>
             <input formControlName="sex" class="form-control" placeholder="sex">
@@ -42,14 +49,19 @@
           <div class="col-md-6 bold"> <label for="phone">Phone number</label>
             <input formControlName="phone" class="form-control" placeholder="Phone number">
           </div>
-          <div class="col-md-6 bold"> <label for="birthday">Birthday</label>
-            <input formControlName="birthday" class="form-control" placeholder="Birthday">
+
+          <div class="col-md-6 bold"> <label for="birthday">Birthday  </label>
+              <input formControlName="birthday" type="date"   class="form-control" placeholder="birthday" 
+              >
           </div>
-        </div>
+        </div> 
 
         <div class="row mt-3">
           <div class="col-md-6 bold"> <label for="departmentname">Department</label>
-            <input formControlName="departmentname" class="form-control" placeholder="Department">
+            <select formControlName="iddepartment" class="form-control" (change)="changeDepartment($event)">
+              <option disabled>Select department</option>
+              <option *ngFor="let dp of listDepartment " [ngValue]="dp.iddepartment">{{dp.departmentname}}</option>
+            </select>
           </div>
           <div class="col-md-6 bold"> <label for="address">Address</label>
             <input formControlName="address" class="form-control" placeholder="Address">

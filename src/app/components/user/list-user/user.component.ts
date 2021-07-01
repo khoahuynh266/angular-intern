@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/service/user.service';
@@ -17,7 +17,6 @@ export class UserComponent implements OnInit {
   p = 1;
   id: number;
   constructor(
-    // private http: HttpClient,
     private router: Router,
     private userService: UserService,
     private modalService: NgbModal
@@ -51,13 +50,13 @@ export class UserComponent implements OnInit {
   }
 
   openModal(title, mess, type) {
-    const modalRef = this.modalService.open(UserModalComponent);
+    const modalRef = this.modalService.open(UserModalComponent,{centered:true});
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;
   }
 
-  changeActive(event, param) {
+  changeStatus(event, param) {
     console.log(param.active);
     const modalRef = this.modalService.open(UserModalComponent);
     modalRef.componentInstance.title = ['Confirm'];

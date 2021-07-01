@@ -11,7 +11,9 @@
                     <div routerLink="/home" class="d-flex flex-row align-items-center back pointer"><span
                             class="fa fa-arrow-left mr-1 mb-1 "></span>
                         <h6>Back to home</h6>
+                      
                     </div>
+                    <div class="btn btn-warning float-right" (click)="changePassword()">Change Password</div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6 bold"> <label for="username">Username</label>
@@ -23,9 +25,17 @@
                 </div>
 
                 <div class="row mt-3 bold">
-                    <div class="col-md-6 bold"> <label for="rolename">Role</label>
-                        <input formControlName="rolename" class="form-control" placeholder="roles">
-                    </div>
+                    <!-- <div class="col-md-3 bold"> <label for="roles">Role</label>
+                            <input formControlName="name" class="form-control"  (change)="changeRole($event)">
+                        </div> -->
+                    <div class="col-md-6 bold"> <label for="roles">Roles</label>
+                        <select formControlName="rolename" class="form-control"  placeholder="roles" (change)="changeRole($event)">
+                            <option disabled [ngValue]="null">Select Role</option>
+                            <option *ngFor="let role of listRole" [ngValue]="role.name"  [selected]="role.selected == true">{{role.name}}
+                            </option>
+                        </select>
+                        </div>
+                  
                     <div class="col-md-6 bold"> <label for="sex">Sex</label>
                         <input formControlName="sex" class="form-control" placeholder="sex">
                     </div>
@@ -35,14 +45,19 @@
                     <div class="col-md-6 bold"> <label for="phone">Phone number</label>
                         <input formControlName="phone" class="form-control" placeholder="Phone number">
                     </div>
-                    <div class="col-md-6 bold"> <label for="birthday">Birthday</label>
-                        <input formControlName="birthday" class="form-control" placeholder="Birthday">
+
+                    <div class="col-md-6 bold"> <label for="birthday">Birthday </label>
+                        <input formControlName="birthday" type="date" class="form-control" placeholder="birthday">
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col-md-6 bold"> <label for="departmentname">Department</label>
-                        <input formControlName="departmentname" class="form-control" placeholder="Department">
+                        <select formControlName="iddepartment" class="form-control" (change)="changeDepartment($event)">
+                            <option disabled>Select department</option>
+                            <option *ngFor="let dp of listDepartment " [ngValue]="dp.iddepartment">{{dp.departmentname}}
+                            </option>
+                        </select>
                     </div>
                     <div class="col-md-6 bold"> <label for="address">Address</label>
                         <input formControlName="address" class="form-control" placeholder="Address">

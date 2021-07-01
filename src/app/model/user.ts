@@ -6,7 +6,7 @@ export class User {
   password: string;
   fullname: string;
   phone: string;
-  accesToken?: string;
+  accessToken?: string;
   refreshToken?: string;
   roles: Role;
 }
