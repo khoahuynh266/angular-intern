@@ -57,6 +57,7 @@ export class AdminUpdatePasswordComponent implements OnInit {
             "Password changed successfully!",
             "alert-success"
           );
+          this.router.navigate(["profile"]);
         },
         (error) => {
           this.openModal("Fail", error.error.message, "alert-danger");
@@ -95,7 +96,6 @@ export class AdminUpdatePasswordComponent implements OnInit {
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;
-    this.router.navigate(["profile"]);
   }
 
   ngOnInit() {

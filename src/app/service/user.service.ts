@@ -41,7 +41,6 @@ getListRole()
 
 }
   deleteUser(id: number) {
-
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token)
     };

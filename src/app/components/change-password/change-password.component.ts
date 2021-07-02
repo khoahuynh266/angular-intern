@@ -40,7 +40,6 @@ export class ChangePasswordComponent implements OnInit {
   }
   id;
   changePassword() {
-
     console.log("id "+this.id)
     this.conversionEncryptOutput = this.EncrDecr.set(
       this.changePasswordForm.value.oldPassword.trim()
@@ -65,9 +64,11 @@ export class ChangePasswordComponent implements OnInit {
             "Password changed successfully!",
             "alert-success"
           );
+          this.router.navigate(["profile"]);
         },
         (error) => {
           this.openModal("Fail", error.error.message, "alert-danger");
+
         }
       );
     }
@@ -122,7 +123,7 @@ export class ChangePasswordComponent implements OnInit {
     modalRef.componentInstance.title = [title, type];
     modalRef.componentInstance.message = mess;
     modalRef.componentInstance.isConfirm = false;
-    this.router.navigate(["profile"]);
+   this.onReset();
   }
 
   ngOnInit() {

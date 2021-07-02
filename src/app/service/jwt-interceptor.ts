@@ -28,7 +28,7 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let currentUser = this.authenticationService.currentUserValue;
     if (currentUser && currentUser.accessToken) {
-      req = this.addAuthorizationHeader(req,currentUser.accessToken)
+      req = this.addAuthorizationHeader(req, currentUser.accessToken);
     }
 
     return next.handle(req).pipe(
@@ -36,18 +36,19 @@ export class JwtInterceptor implements HttpInterceptor {
         // in case of 401 http error
         if (err instanceof HttpErrorResponse && err.status === 401) {
           // get refresh tokens
-          if( this.authenticationService.currentUserValue!== null){
-          const refreshToken =
-            this.authenticationService.currentUserValue.refreshToken;
-          console.log(refreshToken);
-          // if there are tokens then send refresh token request
-          if (refreshToken && currentUser.accessToken) {
-            return this.refreshToken(req, next);
-          }
+          if (this.authenticationService.currentUserValue !== null) {
+            const refreshToken =
+              this.authenticationService.currentUserValue.refreshToken;
+            console.log(refreshToken);
+            // if there are tokens then send refresh token request
+            if (refreshToken && currentUser.accessToken) {
+              return this.refreshToken(req, next);
+            }
 
-          // otherwise logout and redirect to login page
-          return this.logoutAndRedirect(err);
-        }}
+            // otherwise logout and redirect to login page
+            return this.logoutAndRedirect(err);
+          }
+        }
 
         // in case of 403 http error (refresh token failed)
         if (err instanceof HttpErrorResponse && err.status === 403) {
@@ -55,6 +56,9 @@ export class JwtInterceptor implements HttpInterceptor {
           return this.logoutAndRedirect(err);
         }
         // if error has status neither 401 nor 403 then just return this error
+        // if (err instanceof HttpErrorResponse && err.status === 500) {
+        //   return this.serverError(err);
+        // }
         return throwError(err);
       })
     );
@@ -73,6 +77,10 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     return request;
+  }
+  private serverError(err) {
+    this.router.navigateByUrl("/home");
+    return throwError(err);
   }
 
   private logoutAndRedirect(err): Observable<HttpEvent<any>> {
@@ -94,7 +102,8 @@ export class JwtInterceptor implements HttpInterceptor {
         switchMap((res) => {
           this.refreshingInProgress = false;
           this.accessTokenSubject.next(res["accessToken"]);
-          this.authenticationService.currentUserValue.accessToken = res["accessToken"];
+          this.authenticationService.currentUserValue.accessToken =
+            res["accessToken"];
           this.authenticationService.isAuthenticated = true;
           // repeat failed request with new token
           return next.handle(

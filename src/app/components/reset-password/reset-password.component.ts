@@ -70,7 +70,7 @@ export class ResetPasswordComponent implements OnInit {
   }
   ResetPassword(form) {
     this.ResponseResetForm.value.newPassword = this.EncrDecr.set(this.ResponseResetForm.value.newPassword);
-    // this.ResponseResetForm.value.confirmPassword = this.EncrDecr.set(this.ResponseResetForm.value.confirmPassword);
+    this.ResponseResetForm.value.confirmPassword = this.EncrDecr.set(this.ResponseResetForm.value.confirmPassword);
       this.authService.newPassword(this.ResponseResetForm.value).subscribe(
         (data) => {
           this.ResponseResetForm.reset();

@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   deleteUser(id, username) {
     const deletedID = this.arrAccounts.find((x) => x.id === id);
 
-    const modalRef = this.modalService.open(UserModalComponent);
+    const modalRef = this.modalService.open(UserModalComponent,{centered:true});
     modalRef.componentInstance.title = ['Delete User id :' + deletedID.id];
     modalRef.componentInstance.message = 'Are you sure to delete ' + username;
     modalRef.componentInstance.isConfirm = true;
@@ -35,18 +35,15 @@ export class UserComponent implements OnInit {
           console.log(deletedID);
           this.userService.deleteUser(id).subscribe((data) => {
             this.arrAccounts.splice(this.arrAccounts.indexOf(deletedID), 1);
-
             this.openModal(
               'Success',
               'Delete user successfully!',
               'alert-success'
             );
-          });
+          },
+          (err)=> {this.openModal('Fail', 'Delete user is failed!', 'alert-danger');});
         }
       })
-      .catch(() => {
-        this.openModal('Fail', 'Delete update is failed!', 'alert-danger');
-      });
   }
 
   openModal(title, mess, type) {
